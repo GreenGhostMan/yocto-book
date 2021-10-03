@@ -1,0 +1,23 @@
+#!/bin/sh
+# CREATED BY ROM ROBOTICS MYANMAR COMPANY LTD #
+PATH="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin"
+case "$1" in
+	start)
+	source /opt/ros/noetic/setup.sh
+	roscore <>/dev/tty8 2>/dev/tty8 
+	;;
+	stop)
+	source /opt/ros/noetic/setup.sh
+
+	# kill all nodes
+	for i in $( rosnode list ); do
+		rosnode kill $i;
+		echo "killing $i"
+	done
+
+	# stop roscore
+	killall roscore
+	echo "killing all roscore"
+	;;
+esac
+
